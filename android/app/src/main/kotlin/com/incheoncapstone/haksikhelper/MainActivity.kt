@@ -1,0 +1,6 @@
+package com.incheoncapstone.haksikhelper
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
