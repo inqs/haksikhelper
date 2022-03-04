@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:haksikhelper/provider.dart';
+import 'package:provider/provider.dart';
 class customerHome extends StatefulWidget {
   const customerHome({Key? key}) : super(key: key);
-
   @override
   State<customerHome> createState() => _customerHomeState();
 }
@@ -97,7 +96,6 @@ class _customerHomeState extends State<customerHome> {
                 ),
                 Container(
                   // 포화도 표시 가이드바.
-
                   width: MediaQuery.of(context).size.width * 0.05,
                   height: MediaQuery.of(context).size.height * 0.30,
                   color: Color.fromRGBO(243, 255, 254, 1),

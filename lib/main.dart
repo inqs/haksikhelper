@@ -3,12 +3,15 @@ import 'package:haksikhelper/cushome.dart' as cus;
 import 'package:haksikhelper/style.dart' as style;
 import 'package:haksikhelper/sellhome.dart' as cct;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+
+Future<void> main() async{
   runApp(MaterialApp(
-      theme: style.theme,
-      home:MyApp()
-  ));
+        theme: style.theme,
+        home:MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,6 +31,7 @@ class _MyAppState extends State<MyApp> {
   //    data = result2;
   //  });
   //}
+
 
   @override
   void initState() {
