@@ -4,12 +4,15 @@ import 'package:haksikhelper/style.dart' as style;
 import 'package:haksikhelper/sellhome.dart' as cct;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-
-Future<void> main() async{
+import 'package:haksikhelper/splash.dart';
+import 'package:haksikhelper/welcomPage.dart' as wel;
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
         theme: style.theme,
-        home:MyApp()
+        debugShowCheckedModeBanner: false,
+        home:SplashPage(duration: 3, goToPage: wel.WelcomePage(),),
     ),
   );
 }
@@ -49,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         centerTitle: false,
         title: const Text('학식 도우미',textAlign: TextAlign.left, style: TextStyle(color: Colors.black26),),
         actions: [IconButton(onPressed: (){}, icon: Icon(Icons.add_box_outlined),iconSize: 40,)],),
-      body:[cus.customerHome(),cct.MyHomePage()][tab],
+      body:[cus.customerHome(),wel.WelcomePage()][tab],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -60,63 +63,17 @@ class _MyAppState extends State<MyApp> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.people),label: '학생'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded),label: '학생식당')
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded),label: '학생식당'),
         ],),
     );
   }
 }
 
-class Seller extends StatelessWidget {
-  const Seller({Key? key,this.inst}) : super(key: key);
-  final inst;
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
 
 
-class Customer extends StatelessWidget {
-  const Customer({Key? key,this.inst}) : super(key: key);
-  final inst;
-  isNotEmpty(){
-    if (inst==null){return 0;}
-    else {return 1;}
-  }
-  @override
-  Widget build(BuildContext context) {
-    print(inst);
-    if (inst.isNotEmpty) {
-      return ListView.builder(itemCount: 3, itemBuilder: (c, i){
-        return Column(
-          children: [
-            Image.network(inst[i]['image']),
-            Container(
-              constraints: BoxConstraints(maxWidth: 600),
-              padding: EdgeInsets.all(20),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text('좋아요 '),
-                      Text(inst[i]['likes'].toString()),
-                    ],
-                  ),
-                  Text(inst[i]['user']),
-                  Text(inst[i]['content']),
-                ],
-              ),
-            )
-          ],
-        );
-      });
-    }
-    else {return Text('로딩중');}
 
-  }
-}
+
+
 
 
 

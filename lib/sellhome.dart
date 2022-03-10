@@ -2,26 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:haksikhelper/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:provider/provider.dart';
-
-class ChartApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haksikhelper/realtimeChart.dart';
+class SellHome extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  MyHomePage({Key? key}) : super(key: key);
+  SellHome({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SellHomeState createState() => _SellHomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SellHomeState extends State<SellHome> {
   final textController = TextEditingController();
   late List<_ChartData> data;
   late TooltipBehavior _tooltip;
@@ -53,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         LinearGradient(colors: color, stops: stops);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('최대 이용자 수'),
+          title: const Text('영양사'),
         ),
         body: ListView(children: [
           Container(
