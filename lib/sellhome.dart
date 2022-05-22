@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haksikhelper/addMenu.dart';
 import 'package:haksikhelper/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:provider/provider.dart';
@@ -15,22 +16,7 @@ class SellHome extends StatefulWidget {
 
 class _SellHomeState extends State<SellHome> {
   final textController = TextEditingController();
-  late List<_ChartData> data;
   late TooltipBehavior _tooltip;
-  List<Text> menu = [Text('짜장밥'),Text('짬뽕국물'),Text('김치')];
-  @override
-  void initState() {
-    data = [
-      _ChartData('MON', 12, 0.5),
-      _ChartData('TUE', 15, 0.3),
-      _ChartData('WED', 30, 0.34),
-      _ChartData('THU', 6.4, 0.29),
-      _ChartData('FRI', 14, 0.12)
-    ];
-    _tooltip = TooltipBehavior(enable: true);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final List<Color> color = <Color>[];
@@ -45,79 +31,107 @@ class _SellHomeState extends State<SellHome> {
         LinearGradient(colors: color, stops: stops);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('영양사'),
+          title: const Text('영양사',style: TextStyle(color: Colors.grey),),
+            backgroundColor: Color.fromRGBO(210, 255, 251, 1)
         ),
         body: ListView(children: [
           Container(
               width: MediaQuery.of(context).size.width * 1.0,
               height: MediaQuery.of(context).size.height * 0.30,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/common.jpeg"),
-                  fit: BoxFit.cover,
-                ),
+              child: LiveChartWidget(title: 'live chart',),
               ),
-              child: SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
-                  primaryYAxis:
-                      NumericAxis(minimum: 0, maximum: 40, interval: 10),
-                  tooltipBehavior: _tooltip,
-                  series: <ChartSeries<_ChartData, String>>[
-                    BubbleSeries<_ChartData, String>(
-                        dataSource: data,
-                        xValueMapper: (_ChartData data, _) => data.x,
-                        yValueMapper: (_ChartData data, _) => data.y,
-                        sizeValueMapper: (_ChartData data, _) => data.size,
-                        name: 'Gold',
-                        color: Color.fromRGBO(8, 142, 255, 1),
-                        gradient: gradientColors),
-                  ])),
+          SizedBox(
+            height: 20,
+          ),
           Container(
             child: Column(
               children: [
-                Container(child: Text('피크 시간'),),
+                Container(
+            padding: EdgeInsets.all(10),
+                  child: Text('피크 시간'),),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('5시 30분'),
-                      Text('12시 33분'),
-                      Text('15시 40분')
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.white54,
+                              border: Border.all()
+                          ),
+                          child: Text('5시 30분')),
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.white54,
+                              border: Border.all()
+                          ),
+                          child: Text('12시 33분')),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          border: Border.all()
+                        ),
+                          child: Text('17시 40분'))
                     ],
                   ),
                 )
               ],
             )
           ),
-          TextButton(onPressed: (){
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('월요일 식단'),
-                  content: Column(
-                    children: [
-                      TextField(
-                        controller: textController,
-                      ),
-                      TextButton(onPressed: (){
-                      }, child: Text('추가'))
-                    ],
-                  ),
-                );
-              },
-            );
-          }, child: Text('학식 메뉴 수정')),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextButton(
+                style: TextButton.styleFrom(
+                    primary: Colors.grey,
+                    backgroundColor: Colors.white,
+                    padding: EdgeInsets.all(15),
+                    shape: StadiumBorder()),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context)=>addMenu())
+                  );
+                },
+                child: Text(
+                  '식단 추가하기',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                )),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextButton(
+                style: TextButton.styleFrom(
+                    primary: Colors.white54,
+                    backgroundColor: Colors.white54,
+                    padding: EdgeInsets.all(15),
+                    shape: StadiumBorder()),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context)=>addMenu())
+                  );
+                },
+                child: Text(
+                  '이벤트',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                )),
+          ),
         ]
 
         ));
   }
-}
-
-class _ChartData {
-  _ChartData(this.x, this.y, this.size);
-
-  final String x;
-  final double y;
-  final double size;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haksikhelper/cushome.dart';
 import 'package:haksikhelper/sellhome.dart';
+import 'package:haksikhelper/signup.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ class WelcomePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>SellHome())
+                            MaterialPageRoute(builder: (context)=>LoginSignupScreen())
                           );
                         },
                         child: Text(
@@ -97,26 +98,6 @@ class WelcomePage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  GestureDetector(
-                    onTap: (){},
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        padding: EdgeInsets.all(15),
-                        child: Text('LogIn',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(width: 3, color: Colors.grey)
-                        ),
-                      ),
-                    ),
-                  )
                 ],
               ),
             )

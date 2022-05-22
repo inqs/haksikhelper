@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'Palette.dart';
+
 class customerHome extends StatefulWidget {
   const customerHome({Key? key}) : super(key: key);
   @override
@@ -12,8 +14,17 @@ class customerHome extends StatefulWidget {
 }
 
 class _customerHomeState extends State<customerHome> {
+  late List<Color> getColor;
+
   @override
   Widget build(BuildContext context) {
+    @override
+    void initState(){
+
+
+    }
+
+    bool isSignupScreen = true;
 
     var guideBar = Container(
       padding: EdgeInsets.fromLTRB(0, 5, 10, 5),
@@ -40,7 +51,7 @@ class _customerHomeState extends State<customerHome> {
       appBar: AppBar(
         centerTitle: false,
           shadowColor: Colors.transparent,
-          title: Text('학식도우미',style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
+          title: Text('학식도우미',style: TextStyle(fontSize: 20,color: Colors.blueGrey,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
       backgroundColor: Color.fromRGBO(210, 255, 251, 1)),
 
       body: ListView(
@@ -76,7 +87,7 @@ class _customerHomeState extends State<customerHome> {
                             height: MediaQuery.of(context).size.height * 0.20,
                             color: Color.fromRGBO(243, 255, 254, 1),
                             child: main_box(
-                              BC: boxColor[3],
+                              BC: boxColor[1],
                             ),
                           ),
                           Column(
@@ -88,7 +99,7 @@ class _customerHomeState extends State<customerHome> {
                                 height: MediaQuery.of(context).size.height * 0.10,
                                 color: Color.fromRGBO(243, 255, 254, 1),
                                 child: main_box(
-                                  BC: boxColor[4],
+                                  BC: boxColor[1],
                                 ),
                               ),
                               Container(
@@ -107,7 +118,7 @@ class _customerHomeState extends State<customerHome> {
                         width: MediaQuery.of(context).size.width * 0.80,
                         height: MediaQuery.of(context).size.height * 0.10,
                         color: Color.fromRGBO(243, 255, 254, 1),
-                        child: main_box(BC: boxColor[1]),
+                        child: main_box(BC: boxColor[3]),
                       )
                     ],
                   ),
@@ -140,227 +151,184 @@ class _customerHomeState extends State<customerHome> {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child: Text('금주의 식단',style: GoogleFonts.notoSans(fontSize: 15 ,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
-              ), // 학식 식단
+              ),
+
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('월요일 식단'),
-                            content: Row(
-                              children: [
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      Text('아침'),
-                                      StreamBuilder(
-                                          stream: FirebaseFirestore.instance
-                                              .collection('Mon')
-                                              .snapshots(),
-                                          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-                                            if(snapshot.hasError){
-                                              return Text('Error');
-                                            }
-                                            if (!snapshot.hasData){
-                                              return const CircularProgressIndicator();
-                                            }
-                                            final data = snapshot.requireData;
-
-                                            return ListView.builder(
-                                                itemCount: data.size,
-                                                itemBuilder: (context, index){
-                                                return Text(data.docs[index]['lunch']);
-                                            });
-
-                                          }
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      Text('점심')
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      Text('점심'),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                      setState(() {
+                        isSignupScreen = false;
+                        print(isSignupScreen);
+                      });
                     },
                     child: Column(
                       children: [
-                        day[0],
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.30,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                height: MediaQuery.of(context).size.height * 0.30,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        right: BorderSide(
-                                            width: 1, color: Colors.grey))),
-                                child: ListView.builder(
-                                    itemCount: mon.length,
-                                    itemBuilder: (c, i) {
-                                      return ListTile(
-                                        leading: mon[i],
-                                      );
-                                    })),
+                        Text(
+                          '1코너',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: !isSignupScreen
+                                  ? Palette.activeColor
+                                  : Palette.textColor1),
                         ),
+                        if (!isSignupScreen)
+                          Container(
+                            margin: EdgeInsets.only(top: 3),
+                            height: 2,
+                            width: 55,
+                            color: Colors.orange,
+                          )
                       ],
-                    ), //MON
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('월요일 식단'),
-                            content: Text('월월'),
-                          );
-                        },
-                      );
+                      setState(() {
+                        isSignupScreen = true;
+                        print(isSignupScreen);
+                      });
                     },
                     child: Column(
                       children: [
-                        day[1],
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.30,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: ListView.builder(
-                                itemCount: mon.length,
-                                itemBuilder: (c, i) {
-                                  return ListTile(
-                                    leading: mon[i],
-                                  );
-                                })),
+                        Text(
+                          '2코너',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: isSignupScreen
+                                  ? Palette.activeColor
+                                  : Palette.textColor1),
+                        ),
+                        if (isSignupScreen)
+                          Container(
+                            margin: EdgeInsets.only(top: 3),
+                            height: 2,
+                            width: 55,
+                            color: Colors.orange,
+                          )
                       ],
                     ),
-                  ), //TUE
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('월요일 식단'),
-                            content: Text('월월'),
-                          );
-                        },
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        day[2],
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.30,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: ListView.builder(
-                                itemCount: mon.length,
-                                itemBuilder: (c, i) {
-                                  return ListTile(
-                                    leading: mon[i],
-                                  );
-                                })),
-                      ],
-                    ),
-                  ), //Wed
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('월요일 식단'),
-
-                          );
-                        },
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        day[3],
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.30,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                height: MediaQuery.of(context).size.height * 0.30,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        right: BorderSide(
-                                            width: 1, color: Colors.grey))),
-                                child: ListView.builder(
-                                    itemCount: mon.length,
-                                    itemBuilder: (c, i) {
-                                      return ListTile(
-                                        leading: mon[i],
-                                      );
-                                    })),),
-                      ],
-                    ),
-                  ), //Thu
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('월요일 식단'),
-                            content: Text('월월'),
-                          );
-                        },
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        day[4],
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.height * 0.30,
-                            child: ListView.builder(
-                                itemCount: mon.length,
-                                itemBuilder: (c, i) {
-                                  return ListTile(
-                                    leading: mon[i],
-                                  );
-                                })),
-                      ],
-                    ),
-                  ), //FRI
+                  )
                 ],
               ),
+
+                if(isSignupScreen)
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('sikdan/FPa6UWoqdCj0t2rllkXD/monday').snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final docs = snapshot.data!.docs;
+                      return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount:docs.length,
+                          itemBuilder: (context, index){
+                            return Container(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 70,
+                                    child : day[index]
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:[
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                          width: 35
+                                          ,child: Text('중식')),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
+                                            ),
+                                          width: 250,
+                                          child: Text(
+                                            docs[index]['lunch'],
+                                            style: Theme.of(context).textTheme.subtitle1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(width: 35,
+                                          child: Text('석식')),
+                                          Container(
+                                            width: 250,
+                                            child: Text(
+                                              docs[index]['dinner'],
+                                              style: Theme.of(context).textTheme.subtitle1,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                    ],
+                                  )
+                                ],
+                              )
+                              //child: Text(docs[index]['morning']),
+                            );
+                          }
+                      );
+                    },
+
+                  ),
+                if(!isSignupScreen)
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('sikdan/FPa6UWoqdCj0t2rllkXD/corner2').snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final docs = snapshot.data!.docs;
+                      return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount:docs.length,
+                          itemBuilder: (context, index){
+                            return Container(
+
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: 100,
+                                        child : day[index]
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(docs[index]['lunch']),
+                                        Text(docs[index]['dinner']),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              //child: Text(docs[index]['morning']),
+                            );
+                          }
+                      );
+                    },
+                  ),
+              // 학식 식단
             ],
           ),
           Container(
@@ -395,11 +363,18 @@ List<Color> boxColor = [
 ];
 List<Text> mon = [Text('밥'), Text('국'), Text('김치')];
 List<Text> day = [
-  Text('MON'),
-  Text('TUE'),
-  Text('WED'),
-  Text('THU'),
-  Text('FRI')
+  Text('MON', style: TextStyle(fontSize: 17),),
+  Text('TUE', style: TextStyle(fontSize: 17)),
+  Text('WED', style: TextStyle(fontSize: 17)),
+  Text('THU', style: TextStyle(fontSize: 17)),
+  Text('FRI', style: TextStyle(fontSize: 17))
+];
+List<String> a= [
+  'monday1'
+  'monday2',
+  'tuesday1',
+  'tuesday2',
+  'wednesday1'
 ];
 
 class main_box extends StatelessWidget {
@@ -416,3 +391,4 @@ class main_box extends StatelessWidget {
         duration: Duration(seconds: 1));
   }
 }
+

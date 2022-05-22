@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>853073663831-ccqsuh6ruoupsflmmv0e8ak8ernuss4l.apps.googleusercontent.com</string>
+	<string>1059749085519-r8dnn7t3s3h4qfqvkkkhb4ff5e0qtldq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.853073663831-ccqsuh6ruoupsflmmv0e8ak8ernuss4l</string>
+	<string>com.googleusercontent.apps.1059749085519-r8dnn7t3s3h4qfqvkkkhb4ff5e0qtldq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD9GDTrKYU3wcjzcHhvAEA3L-mgZxYvnJw</string>
+	<string>AIzaSyAmMim8Q2YKyvj_NwB4Bnv6PZ8h3tsVEt4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>853073663831</string>
+	<string>1059749085519</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.incheoncapstone.haksikhelper</string>
 	<key>PROJECT_ID</key>
-	<string>cap-various</string>
+	<string>capstone-various-91aad</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cap-various.appspot.com</string>
+	<string>capstone-various-91aad.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:853073663831:ios:fcdbf53710d837cf409012</string>
+	<string>1:1059749085519:ios:cc17d2216990f88bc3453a</string>
 </dict>
 </plist>
